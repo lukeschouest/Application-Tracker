@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Application Tracker</title>
+    <script src="app.js" defer></script>
   </head>
   <body>
     <h1>Application Tracker</h1>
@@ -16,14 +17,15 @@
       <input id="position" type="text" required />
 
       <label for="status">Status</label>
-        <select id="status">
 
-        <select id="status">
-            <option value="Applied">Applied</option>
-            <option value="Interviewing">Interviewing</option>
-            <option value="Offer">Offer</option>
-            <option value="Rejected">Rejected</option>
-        </select>
+      <select id="status">
+        <option value="Applied">Applied</option>
+        <option value="Interviewing">Interviewing</option>
+        <option value="Offer">Offer</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+
+      <button type="submit">Submit</button>
     </form>
   </body>
 </html>
