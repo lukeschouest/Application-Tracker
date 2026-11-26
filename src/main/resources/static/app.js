@@ -3,6 +3,7 @@ const companyInput = document.getElementById("company");
 const positionInput = document.getElementById("position");
 const statusInput = document.getElementById("status");
 const applicationlist = document.getElementById("application-list");
+const message = document.getElementById("message");
 
 form.addEventListener("submit", async (Event) => {
   Event.preventDefault();
@@ -15,17 +16,27 @@ form.addEventListener("submit", async (Event) => {
 
   const json = JSON.stringify(application);
 
-  const response = await fetch("/applications", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: json,
-  });
+  try {
+    const response = await fetch("/applications", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: json,
+    });
 
-  if (response.ok) {
-    await loadApplications();
-    form.reset();
+    if (response.ok) {
+      message.textContent = "Application saved successfully.";
+
+      await loadApplications();
+      form.reset();
+    } else {
+      message.textContent = "Couldn't save the application. Please try again.";
+    }
+  } catch (error) {
+    message.textContent = "A connection or response error occurred.";
+
+    console.error(error);
   }
 });
 
