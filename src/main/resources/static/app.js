@@ -2,6 +2,7 @@ const form = document.getElementById("application-form");
 const companyInput = document.getElementById("company");
 const positionInput = document.getElementById("position");
 const statusInput = document.getElementById("status");
+const applicationlist = document.getElementById("application-list");
 
 form.addEventListener("submit", async (Event) => {
   Event.preventDefault();
@@ -22,5 +23,31 @@ form.addEventListener("submit", async (Event) => {
     body: json,
   });
 
-  console.log("Response status:", response.status);
+  if (response.ok) {
+    await loadApplications();
+    form.reset();
+  }
 });
+
+async function loadApplications() {
+  const response = await fetch("/applications");
+
+  const applications = await response.json();
+
+  applicationlist.textContent = "";
+
+  for (const application of applications) {
+    const item = document.createElement("li");
+
+    item.textContent =
+      application.company +
+      " - " +
+      application.position +
+      " - " +
+      application.status;
+
+    applicationlist.appendChild(item);
+  }
+}
+
+loadApplications();
